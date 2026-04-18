@@ -838,12 +838,7 @@ export default function App() {
   const secondary = result.secondary ? profiles[result.secondary] : null;
 
   const linkedinResultText = primary
-    ? `I took this AI coding assistant quiz and got ${primary.name} — ${primary.role}.
-
-What did you get?
-https://quiz.beehood.com
-
-#AI #Coding #DeveloperTools #Beehood #TechCraftByBees`
+    ? `I built a small experiment at Beehood.\n\nI took this AI coding assistant quiz and got ${primary.name} — ${primary.role}.\n\nWhat did you get?\nhttps://quiz.beehood.com\n\n#AI #Coding #DeveloperTools #Beehood #TechCraftByBees`
     : "";
 
   const linkedinFavoriteText = primary ? primary.favoriteCopy : "";

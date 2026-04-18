@@ -831,13 +831,14 @@ https://quiz.beehood.com
       <div style={styles.glowTwo} />
 
       <div style={styles.container}>
-        <div style={styles.hero}>          
+        <div style={styles.hero}>
+          <div style={styles.badge}>Interactive coding assistant quiz</div>
           <h1 style={styles.title}>
             Which AI coding assistant fits <span style={styles.titleAccent}>how you think</span>?
           </h1>
-	<p style={{ color: "#94a3b8", marginTop: 14 }}>
-    5 questions. 1 insight.
-	</p>
+          <p style={styles.subtitle}>
+            Answer 5 quick questions chosen from a broader question bank. After every choice, a related fun fact appears. Then the app predicts whether ChatGPT, Claude, or Copilot best suits your coding style.
+          </p>
         </div>
 
         <div style={styles.progressCard}>
@@ -853,7 +854,7 @@ https://quiz.beehood.com
               }}
             />
           </div>
-          <div style={styles.microNote}>Every run is unique.</div>
+          <div style={styles.microNote}>Every run picks a different mix of 5 questions from the larger bank.</div>
         </div>
 
         {!complete ? (

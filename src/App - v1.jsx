@@ -118,37 +118,27 @@ const profiles = {
     name: "ChatGPT",
     role: "The Architect",
     emoji: "🧠",
-    summary:
-      "You value framing, structure, trade-offs, and clear thinking before code starts moving.",
+    summary: "You value framing, structure, trade-offs, and clear thinking before code starts moving.",
     accent: "linear-gradient(135deg, #2dd4bf, #22c55e)",
-    favoriteCopy:
-      "My favorite AI coding assistant style is ChatGPT — The Architect. I value planning, clarity, and structure before coding. What’s yours? https://quiz.beehood.com",
   },
   claude: {
     name: "Claude",
     role: "The Reviewer",
     emoji: "🔎",
-    summary:
-      "You thrive on careful reading, thoughtful critique, and improving quality before making changes.",
+    summary: "You thrive on careful reading, thoughtful critique, and improving quality before making changes.",
     accent: "linear-gradient(135deg, #fb923c, #f59e0b)",
-    favoriteCopy:
-      "My favorite AI coding assistant style is Claude — The Reviewer. I value depth, refinement, and careful reasoning. What’s yours? https://quiz.beehood.com",
   },
   copilot: {
     name: "Copilot",
     role: "The Pair Programmer",
     emoji: "⚡",
-    summary:
-      "You want speed, momentum, and low-friction execution once the path is already clear.",
+    summary: "You want speed, momentum, and low-friction execution once the path is already clear.",
     accent: "linear-gradient(135deg, #60a5fa, #8b5cf6)",
-    favoriteCopy:
-      "My favorite AI coding assistant style is Copilot — The Pair Programmer. I value coding flow, speed, and execution. What’s yours? https://quiz.beehood.com",
   },
 };
 
 function getResult(answers) {
   const totals = { chatgpt: 0, claude: 0, copilot: 0 };
-
   answers.forEach((answer) => {
     if (!answer) return;
     Object.entries(answer.scores).forEach(([key, val]) => {
@@ -157,7 +147,6 @@ function getResult(answers) {
   });
 
   const sorted = Object.entries(totals).sort((a, b) => b[1] - a[1]);
-
   return {
     totals,
     primary: sorted[0]?.[0],
@@ -181,7 +170,6 @@ export default function App() {
   };
 
   const nextQuestion = () => {
-    if (!selected) return;
     const nextAnswers = [...answers];
     nextAnswers[step] = selected;
     setAnswers(nextAnswers);
@@ -197,39 +185,9 @@ export default function App() {
     setFact("");
   };
 
-  const copyToClipboard = async (text, successMessage = "Copied!") => {
-    try {
-      await navigator.clipboard.writeText(text);
-      alert(successMessage);
-    } catch {
-      alert("Could not copy automatically. Please copy it manually.");
-    }
-  };
-
-  const shareOnX = (text) => {
-    const url = encodeURIComponent("https://quiz.beehood.com");
-    const shareText = encodeURIComponent(text);
-    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${shareText}`, "_blank");
-  };
-
   const current = quiz[step];
   const primary = result.primary ? profiles[result.primary] : null;
   const secondary = result.secondary ? profiles[result.secondary] : null;
-
-  const linkedinResultText = primary
-    ? `I took this AI coding assistant quiz and got ${primary.name} — ${primary.role}.
-
-What did you get?
-https://quiz.beehood.com
-
-#AI #Coding #DeveloperTools #Beehood`
-    : "";
-
-  const linkedinFavoriteText = primary
-    ? `${primary.favoriteCopy}
-
-#AI #Coding #DeveloperTools #Beehood`
-    : "";
 
   return (
     <div style={styles.page}>
@@ -240,13 +198,10 @@ https://quiz.beehood.com
         <div style={styles.hero}>
           <div style={styles.badge}>Interactive coding assistant quiz</div>
           <h1 style={styles.title}>
-            Which AI coding assistant fits{" "}
-            <span style={styles.titleAccent}>how you think</span>?
+            Which AI coding assistant fits <span style={styles.titleAccent}>how you think</span>?
           </h1>
           <p style={styles.subtitle}>
-            Answer 5 quick questions. After every choice, a related fun fact appears.
-            Then the app predicts whether ChatGPT, Claude, or Copilot best suits your
-            coding style.
+            Answer 5 quick questions. After every choice, a related fun fact appears. Then the app predicts whether ChatGPT, Claude, or Copilot best suits your coding style.
           </p>
         </div>
 
@@ -256,12 +211,7 @@ https://quiz.beehood.com
             <span>{complete ? "100%" : `${progress}%`}</span>
           </div>
           <div style={styles.progressBarOuter}>
-            <div
-              style={{
-                ...styles.progressBarInner,
-                width: `${complete ? 100 : progress}%`,
-              }}
-            />
+            <div style={{ ...styles.progressBarInner, width: `${complete ? 100 : progress}%` }} />
           </div>
         </div>
 
@@ -324,9 +274,7 @@ https://quiz.beehood.com
             <div style={styles.resultMain}>
               <div style={styles.resultPill}>Your primary fit</div>
               <div style={styles.resultHead}>
-                <div style={{ ...styles.resultIcon, background: primary.accent }}>
-                  {primary.emoji}
-                </div>
+                <div style={{ ...styles.resultIcon, background: primary.accent }}>{primary.emoji}</div>
                 <div>
                   <div style={styles.resultName}>{primary.name}</div>
                   <div style={styles.resultRole}>{primary.role}</div>
@@ -347,7 +295,6 @@ https://quiz.beehood.com
                 {Object.entries(result.totals).map(([key, value]) => {
                   const profile = profiles[key];
                   const pct = Math.round((value / 15) * 100);
-
                   return (
                     <div key={key} style={{ marginTop: 14 }}>
                       <div style={styles.scoreRow}>
@@ -355,80 +302,14 @@ https://quiz.beehood.com
                         <span>{value} pts</span>
                       </div>
                       <div style={styles.scoreBarOuter}>
-                        <div
-                          style={{
-                            ...styles.scoreBarInner,
-                            width: `${pct}%`,
-                            background: profile.accent,
-                          }}
-                        />
+                        <div style={{ ...styles.scoreBarInner, width: `${pct}%`, background: profile.accent }} />
                       </div>
                     </div>
                   );
                 })}
               </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                <button
-                  onClick={() =>
-                    copyToClipboard(
-                      linkedinResultText,
-                      "LinkedIn post copied. Paste it into your post."
-                    )
-                  }
-                  style={styles.primaryShareButton}
-                >
-                  Copy LinkedIn result post
-                </button>
-
-                <button
-                  onClick={() =>
-                    copyToClipboard(
-                      linkedinFavoriteText,
-                      "Favorite-assistant LinkedIn post copied."
-                    )
-                  }
-                  style={styles.secondaryActionButton}
-                >
-                  Copy favorite assistant post
-                </button>
-
-                <button
-                  onClick={() =>
-                    shareOnX(`I got ${primary.name} — ${primary.role} as my AI coding assistant. Try yours!`)
-                  }
-                  style={styles.secondaryActionButton}
-                >
-                  Share on X
-                </button>
-
-                <button onClick={restart} style={styles.restartButton}>
-                  Retake quiz
-                </button>
-              </div>
-
-              <div style={styles.brandBlock}>
-                <div style={styles.brandText}>Built by Beehood</div>
-                <div style={styles.brandLinks}>
-                  <a
-                    href="https://www.linkedin.com/company/beehood"
-                    target="_blank"
-                    rel="noreferrer"
-                    style={styles.brandLink}
-                  >
-                    Follow Beehood on LinkedIn
-                  </a>
-                  <span style={styles.dot}>·</span>
-                  <a
-                    href="https://x.com/beehood_"
-                    target="_blank"
-                    rel="noreferrer"
-                    style={styles.brandLink}
-                  >
-                    @beehood_
-                  </a>
-                </div>
-              </div>
+              <button onClick={restart} style={styles.restartButton}>Retake quiz</button>
             </div>
           </div>
         )}
@@ -808,26 +689,6 @@ const styles = {
     height: "100%",
     borderRadius: 999,
   },
-  primaryShareButton: {
-    border: 0,
-    borderRadius: 16,
-    padding: "14px 18px",
-    background: "#22c55e",
-    color: "#020617",
-    fontWeight: 700,
-    fontSize: 15,
-    cursor: "pointer",
-  },
-  secondaryActionButton: {
-    border: "1px solid rgba(255,255,255,0.10)",
-    borderRadius: 16,
-    padding: "14px 18px",
-    background: "rgba(15,23,42,0.78)",
-    color: "#f8fafc",
-    fontSize: 15,
-    fontWeight: 700,
-    cursor: "pointer",
-  },
   restartButton: {
     border: "1px solid rgba(255,255,255,0.10)",
     borderRadius: 16,
@@ -837,29 +698,5 @@ const styles = {
     fontSize: 15,
     fontWeight: 700,
     cursor: "pointer",
-  },
-  brandBlock: {
-    marginTop: 6,
-    paddingTop: 6,
-  },
-  brandText: {
-    fontSize: 13,
-    color: "#94a3b8",
-    marginBottom: 6,
-  },
-  brandLinks: {
-    display: "flex",
-    alignItems: "center",
-    flexWrap: "wrap",
-    gap: 8,
-  },
-  brandLink: {
-    fontSize: 13,
-    color: "#cbd5e1",
-    textDecoration: "underline",
-  },
-  dot: {
-    fontSize: 13,
-    color: "#64748b",
   },
 };

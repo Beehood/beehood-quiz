@@ -887,7 +887,7 @@ https://quiz.beehood.com
               <div style={styles.sideHeader}>
                 <div style={styles.sideIcon}>✨</div>
                 <div>
-                  <div style={styles.sideLabel}>Dynamic fun fact</div>
+                  <div style={styles.sideLabel}>Fun fact</div>
                   <div style={styles.sideTitle}>Your choice unlocks an insight</div>
                 </div>
               </div>

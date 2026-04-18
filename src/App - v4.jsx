@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 const QUESTION_BANK = [
   {
@@ -741,6 +741,37 @@ export default function App() {
   const result = useMemo(() => getResult(answers), [answers]);
   const progress = complete ? 100 : Math.round((step / quiz.length) * 100);
 
+  useEffect(() => {
+    const title = "Which AI coding assistant fits how you think? | Beehood";
+    const description =
+      "Take Beehood's interactive quiz to see whether ChatGPT, Claude, or Copilot best matches your coding style.";
+    const image = "https://quiz.beehood.com/og-quiz-preview.png";
+    const url = "https://quiz.beehood.com";
+
+    document.title = title;
+
+    const ensureMeta = (attr, key, content) => {
+      const selector = `${attr}="${key}"`;
+      let tag = document.head.querySelector(`meta[${selector}]`);
+      if (!tag) {
+        tag = document.createElement("meta");
+        tag.setAttribute(attr, key);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute("content", content);
+    };
+
+    ensureMeta("name", "description", description);
+    ensureMeta("property", "og:title", title);
+    ensureMeta("property", "og:description", description);
+    ensureMeta("property", "og:type", "website");
+    ensureMeta("property", "og:url", url);
+    ensureMeta("property", "og:image", image);
+    ensureMeta("name", "twitter:card", "summary_large_image");
+    ensureMeta("name", "twitter:title", title);
+    ensureMeta("name", "twitter:description", description);
+    ensureMeta("name", "twitter:image", image);
+  }, []);
 
   const chooseOption = (option) => {
     setSelected(option);
